@@ -33,8 +33,10 @@ class ColorController extends BaseController
         }
 
 
-    public function show($id){
-        $color = Color::find($id);
+    public function index(){
+        $colors = Color::all();
+        "<pre>";
+        print($colors);
 
         // if(is_null($color){
 
@@ -59,6 +61,14 @@ class ColorController extends BaseController
         $color->update( $request->all() );
 
         return $this->sendResponse(  new ColorResource( $color ), "Frissítve");
+    }
+
+    public function destroy($id){
+
+        Color::destroy($id);
+
+        return $this->sendResponse( [], "Törölve");
+
     }
 
 }
