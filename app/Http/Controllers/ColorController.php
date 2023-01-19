@@ -10,10 +10,28 @@ use Validator;
 class ColorController extends BaseController
 {
    public function store(Request $request){
-        $colorRequest = $request->$color;
-        $color = DB::table("colors")->where("color",$colorRequest)->get();
-        print_r($colorRequest);
+        // $colorRequest = $request->$color;
+        // $color = DB::table("colors")->where("color",$colorRequest)->get();
+        // print_r($colorRequest);
+
+        $input = $request->all();
+        $validator = Validator::make( $input , [
+
+            // "id"=>"required",
+            "color" =>"required"
+        ],[
+            "color.required"=>"Adj meg egy színt!"
+        ]);
+
+        if( $validator->fails() ){
+            return $this->sendError( $validator->errors() );
+
         }
+        $color = Color::create( $input);
+        return $this->sendResponse(  new ColorResource( $color ), "Létrehozva");
+
+        }
+
 
     public function show($id){
         $color = Color::find($id);

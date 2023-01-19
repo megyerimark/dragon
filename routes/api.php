@@ -28,3 +28,4 @@ Route::post('/logout', [AuthController::class, 'Logout']);
 Route::post('/color', [DragonController::class, 'store']);
 Route::get('/index', [DragonController::class, 'index']);
 Route::put('/color/{id}', [ColorController::class, 'update']);
+Route::post('/store', [ColorController::class, 'store']);
