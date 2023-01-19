@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Resources\ColorResource;
 use Validator;
 
-class ColorController extends Controller
+class ColorController extends BaseController
 {
    public function store(Request $request){
         $colorRequest = $request->$color;
@@ -29,18 +29,18 @@ class ColorController extends Controller
         $input = $request->all();
         $validator = Validator::make( $input , [
 
-            "id"=>"required",
+            // "id"=>"required",
             "color" =>"required"
         ],[
             "color.required"=>"Adj meg egy színt!"
         ]);
         if ($validator->fails() ){
-           return $this->sendError( $validator->errrors() );
+           return $this->sendError( $validator->errors() );
         }
         $color = Color::find($id);
         $color->update( $request->all() );
 
-        //return $this->sendResponse(  ColorResource($color ), "Frissítve");
+        return $this->sendResponse(  new ColorResource( $color ), "Frissítve");
     }
 
 }
