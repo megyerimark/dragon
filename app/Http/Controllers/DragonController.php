@@ -38,10 +38,29 @@ class DragonController extends BaseController
 }
 
 public function index(){
-    $dragons = Dragon::with("color")->get();
+    $dragons = Dragon::all();
     //echo "<pre>";
-   // print_r($dragons);
+    print($dragons);
    
-    return $this->sendResponse(DragonResource::collection($dragons ), "ok");
+    //return $this->sendResponse(DragonResource::collection($dragons ), "ok");
+
+}
+public function update(Request $request, $id){
+
+    $input = $request->all();
+    $validator = Validator::make( $input , [
+
+        "name" =>"required",
+        "age" =>"required",
+         "color_id" =>"required",
+    
+    ]);
+
+    if ($validator->fails() ){
+       return $this->sendError( $validator->errors() );
+    }
+    $dragon = Dragon::find($id);
+    $dragon->update( $request->all() );
+    return $this->sendResponse(  new DragonResource( $dragon ), "Frissítve");
 }
 }

@@ -24,9 +24,12 @@ Route::post('/register', [AuthController::class, 'SignUp']);
 Route::post('/login', [AuthController::class, 'SignIn']);
 Route::post('/logout', [AuthController::class, 'Logout']);
 
+//dragon
+Route::post('/dstore', [DragonController::class, 'store']);
+Route::get('/a', [DragonController::class, 'index']);
+Route::put('/dragon/{id}', [DragonController::class, 'update']);
 
-Route::post('/color', [DragonController::class, 'store']);
-Route::get('/index', [DragonController::class, 'index']);
+//color
 Route::put('/color/{id}', [ColorController::class, 'update']);
 Route::post('/store', [ColorController::class, 'store']);
 Route::get('/index', [ColorController::class, 'index']);
